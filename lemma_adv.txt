@@ -1,0 +1,11 @@
+0 0 eps eps
+0 1 m m
+1 0 eps eps
+1 2 e e
+2 0 eps eps
+2 3 n n
+3 0 eps eps
+3 4 t t
+4 0 eps eps
+4 5 e e
+5
