@@ -21,12 +21,18 @@
 # Adv
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2adv.txt | fstarcsort > lemma2adv.fst
 
+# Noun
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2noun.txt | fstarcsort > lemma2noun.fst
+
 #################################
 # Test run 1
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  test1.txt | fstarcsort > test1.fst
 # Use the reverse fst of test1
 fstreverse --isymbols=syms.txt --osymbols=syms.txt  test1.fst > test1r.fst
 fstcompose test1r.fst lemma2adv.fst > testresult1r.fst
+#fstcompose test1r.fst lemma2noun.fst > testresult1r.fst
+#later we will use the union between all the lemma2something to test
+
 # Reverse the result back to normal
 fstreverse --isymbols=syms.txt --osymbols=syms.txt  testresult1r.fst > testresult1.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait testresult1.fst | dot -Tpdf  > testresult1.pdf
