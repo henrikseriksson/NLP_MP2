@@ -21,10 +21,10 @@
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma.txt | fstarcsort > lemma.fst
 
 
-# Adv
+# Adverb
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2adv.txt | fstarcsort > adv.fst
-fstconcat adv.fst lemma.fst > lemma2adv.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adv.fst | dot -Tpdf  > adv.pdf
+fstconcat adv.fst lemma.fst > lemma2adverb.fst
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adverb.fst | dot -Tpdf  > adv.pdf
 
 # Noun
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2noun.txt | fstarcsort > noun.fst
@@ -42,7 +42,7 @@ fstcompose test1r.fst lemma2noun.fst > testresult1r.fst
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  test2.txt | fstarcsort > test2.fst
 # Use the reverse fst of test2
 fstreverse test2.fst > test2r.fst
-fstcompose test2r.fst lemma2adv.fst > testresult2r.fst
+fstcompose test2r.fst lemma2adverb.fst > testresult2r.fst
 #later we will use the union between all the lemma2something to test
 
 # Reverse the result back to normal
