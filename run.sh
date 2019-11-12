@@ -61,11 +61,16 @@ fstunion lemma2verbif.fst lemma2verbtemp.fst > lemma2verb.fst
 fstunion lemma2verb.fst lemma2adverb.fst > lemma2wordtemp.fst
 fstrmepsilon lemma2wordtemp.fst lemma2wordtemp.fst
 fstunion lemma2noun.fst lemma2wordtemp.fst > lemma2word.fst
+fstrmepsilon lemma2word.fst lemma2word.fst
+fstdeterminize lemma2word.fst lemma2word.fst
+fstinvert lemma2word.fst word2lemma.fst
+
 #fstunion lemma2verbtemp.fst lemma2verbif.fst > lemma2verbprenorm.fst
 #fstepsnormalize lemma2verbprenorm.fst lemma2verbpredet.fst
 #fstdisambiguate lemma2verbpredet.fst lemma2verb.fst
 #could also minimize if needed
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verb.fst | dot -Tpdf  > verb.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait word2lemma.fst | dot -Tpdf  > word.pdf
 
 
 
@@ -113,5 +118,12 @@ fstreverse testresult5r.fst > testresult5.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait testresult5.fst | dot -Tpdf  > testresult5.pdf
 fstproject --project_output testresult5.fst | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=syms.txt
 
+# Test 6
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  test6.txt | fstarcsort > test6.fst
+fstreverse test6.fst > test6r.fst
+fstcompose test6r.fst word2lemma.fst > testresult6r.fst
+fstreverse testresult6r.fst > testresult6.fst
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait testresult6.fst | dot -Tpdf  > testresult6.pdf
+fstproject --project_output testresult6.fst | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=syms.txt
 
 
