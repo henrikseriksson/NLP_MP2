@@ -47,7 +47,11 @@ fstconcat verbif.fst lemma.fst > lemma2verbif.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbif.fst | dot -Tpdf  > verbif.pdf
 
 # Verb
-fstunion lemma2verbis.fst lemma2verbip.fst > lemma2verb.fst
+fstunion lemma2verbis.fst lemma2verbip.fst > lemma2verbtemp.fst
+fstunion lemma2verbtemp.fst lemma2verbif.fst > lemma2verbprenorm.fst
+#fstepsnormalize lemma2verbprenorm.fst lemma2verbpredet.fst
+#fstdisambiguate lemma2verbpredet.fst lemma2verb.fst
+#could also minimize if needed
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verb.fst | dot -Tpdf  > verb.pdf
 
 
