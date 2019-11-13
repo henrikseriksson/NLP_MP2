@@ -2,51 +2,28 @@
 
 
 ################### Transducers ################
-#
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma_noun.txt | fstarcsort > lemma_noun.fst
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma_adv.txt | fstarcsort > lemma_adv.fst
-
-# Noun
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt  noun.txt | fstarcsort > noun.fst
-#fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait noun.fst | dot -Tpdf  > noun.pdf
-
-# Adv
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt  adv.txt | fstarcsort > adv.fst
-#fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait adv.fst | dot -Tpdf  > adv.pdf
-
-# Lemma2Noun
-#fstconcat lemma_adv.fst adv.fst > lemma2adv.fst
-#fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adv.fst | dot -Tpdf  > lemma2adv.pdf
 
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma.txt | fstarcsort > lemma.fst
-
-
-# Adverb
-fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2adv.txt | fstarcsort > adv.fst
-fstconcat adv.fst lemma.fst > lemma2adverb.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adverb.fst | dot -Tpdf  > adv.pdf
 
 # Noun
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2noun.txt | fstarcsort > noun.fst
 fstconcat noun.fst lemma.fst > lemma2noun.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2noun.fst | dot -Tpdf  > noun.pdf
+
+# Adverb
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2adv.txt | fstarcsort > adv.fst
+fstconcat adv.fst lemma.fst > lemma2adverb.fst
 
 # Verbip
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2verbip.txt | fstarcsort > verbip.fst
 fstconcat verbip.fst lemma.fst > lemma2verbip.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbip.fst | dot -Tpdf  > verbip.pdf
 
 # Verbis
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2verbis.txt | fstarcsort > verbis.fst
 fstconcat verbis.fst lemma.fst > lemma2verbis.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbis.fst | dot -Tpdf  > verbis.pdf
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbis.fst | dot -Tpdf  > verbisdis.pdf
-
 
 # Verbif
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  lemma2verbif.txt | fstarcsort > verbif.fst
 fstconcat verbif.fst lemma.fst > lemma2verbif.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbif.fst | dot -Tpdf  > verbif.pdf
 
 # Verb
 fstrmepsilon lemma2verbis.fst lemma2verbis.fst
@@ -54,10 +31,9 @@ fstrmepsilon lemma2verbif.fst lemma2verbif.fst
 fstrmepsilon lemma2verbip.fst lemma2verbip.fst
 fstunion lemma2verbis.fst lemma2verbip.fst > lemma2verbtemp.fst
 fstrmepsilon lemma2verbtemp.fst lemma2verbtemp.fst
-
 fstunion lemma2verbif.fst lemma2verbtemp.fst > lemma2verb.fst
-#fstdeterminize lemma2verb.fst lemma2verb.fst
 
+# Word
 fstunion lemma2verb.fst lemma2adverb.fst > lemma2wordtemp.fst
 fstrmepsilon lemma2wordtemp.fst lemma2wordtemp.fst
 fstunion lemma2noun.fst lemma2wordtemp.fst > lemma2word.fst
@@ -65,12 +41,15 @@ fstrmepsilon lemma2word.fst lemma2word.fst
 fstdeterminize lemma2word.fst lemma2word.fst
 fstinvert lemma2word.fst word2lemma.fst
 
-#fstunion lemma2verbtemp.fst lemma2verbif.fst > lemma2verbprenorm.fst
-#fstepsnormalize lemma2verbprenorm.fst lemma2verbpredet.fst
-#fstdisambiguate lemma2verbpredet.fst lemma2verb.fst
-#could also minimize if needed
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verb.fst | dot -Tpdf  > verb.pdf
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait word2lemma.fst | dot -Tpdf  > word.pdf
+# Draw
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2noun.fst | dot -Tpdf  > lemma2noun.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adverb.fst | dot -Tpdf  > lemma2adverb.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbip.fst | dot -Tpdf  > lemma2verbip.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbis.fst | dot -Tpdf  > lemma2verbis.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbif.fst | dot -Tpdf  > lemma2verbif.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verb.fst | dot -Tpdf  > lemma2verb.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2word.fst | dot -Tpdf  > lemma2word.pdf
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait word2lemma.fst | dot -Tpdf  > word2lemma.pdf
 
 
 
