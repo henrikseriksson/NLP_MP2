@@ -65,6 +65,9 @@ fstrmepsilon lemma2word.fst lemma2word.fst
 fstdeterminize lemma2word.fst lemma2word.fst
 fstinvert lemma2word.fst word2lemma.fst
 
+#fstdisambiguate word2lemma.fst word2lemma.fst
+#fstdeterminize word2lemma.fst word2lemma.fst
+#fstepsnormalize word2lemma.fst word2lemma.fst
 #fstunion lemma2verbtemp.fst lemma2verbif.fst > lemma2verbprenorm.fst
 #fstepsnormalize lemma2verbprenorm.fst lemma2verbpredet.fst
 #fstdisambiguate lemma2verbpredet.fst lemma2verb.fst
