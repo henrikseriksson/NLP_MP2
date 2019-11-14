@@ -1,8 +1,11 @@
-0 1 a a
-1 2 l l
-2 3 u u
-3 4 n n
-4 5 o o
-5 6 +N +N
-6 7 +fp +fp
-7
+0 1 e e
+1 2 s s
+2 3 t t
+3 4 u u
+4 5 d d
+5 6 a a
+6 7 r r
+7 8 +V +V
+8 9 +ip +ip
+9 10 +1s +1s
+10
